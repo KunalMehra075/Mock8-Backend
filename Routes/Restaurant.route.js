@@ -17,7 +17,7 @@ RestaurantRouter.get("/", async (req, res) => {
 });
 
 //! POST A NEW RESTAURANT
-RestaurantRouter.post("/", async (req, res) => {
+RestaurantRouter.post("/", Authentication, async (req, res) => {
     let restraunt = req.body
     let menu = req.body.menu
     try {
@@ -83,7 +83,7 @@ RestaurantRouter.post("/:id/menu", Authentication, async (req, res) => {
 });
 
 //! DELETE A MENUITEM IN RESTRAUNT BY ID
-RestaurantRouter.delete("/:rid/menu/:mid", async (req, res) => {
+RestaurantRouter.delete("/:rid/menu/:mid", Authentication, async (req, res) => {
     const rid = req.params.rid
     const mid = req.params.mid
     try {

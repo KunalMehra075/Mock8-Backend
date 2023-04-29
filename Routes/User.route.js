@@ -5,6 +5,7 @@ const UserRouter = require("express").Router();
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
 
+// ! GET ALL USERS ROUTE
 UserRouter.get("/", async (req, res) => {
     try {
         const Users = await UserModel.find();
@@ -71,16 +72,23 @@ UserRouter.post("/login", async (req, res) => {
 // ! Patch Route
 UserRouter.patch("/:id/reset", Authentication, async (req, res) => {
     let id = req.params.id
-    const payload = req.body
-    let password = req.body.password
+    let currpass = req.body.currpass
+    let newpass = req.body.newpass
     try {
-        bcrypt.hash(password, 10, async (err, hash) => {
-            if (hash) {
-                payload.password = hash
-                const Updated = await UserModel.findByIdAndUpdate({ _id: id }, payload);
-                res.status(200).json({ Message: "Updated User Details", Updated });
+        let user = await UserModel.findOne({ _id: id })
+        bcrypt.compare(currpass, user.password, (err, result) => {
+            if (result) {
+                bcrypt.hash(newpass, 10, async (err, hash) => {
+                    if (hash) {
+                        user.password = hash
+                        const Updated = await UserModel.findByIdAndUpdate({ _id: id }, user);
+                        res.status(200).json({ Message: "Updated User Password", Updated });
+                    } else {
+                        res.status(400).json({ Message: "Bcrypt Error", success: false, exist: false });
+                    }
+                })
             } else {
-                res.status(400).json({ Message: "Bcrypt Error", success: false, exist: false });
+                res.status(400).json({ Message: "Given Current Password is Wrong", success: false, exist: false });
             }
         })
     } catch (err) {

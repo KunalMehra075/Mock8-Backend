@@ -1,3 +1,4 @@
+const Authentication = require("../Middlewares/Authentication.middleware");
 const OrderModel = require("../Models/Order.model");
 
 const OrderRouter = require("express").Router();
@@ -14,7 +15,7 @@ OrderRouter.get("/", async (req, res) => {
 });
 
 //! POST A NEW ORDER
-OrderRouter.post("/", async (req, res) => {
+OrderRouter.post("/", Authentication, async (req, res) => {
     const order = req.body
     try {
         const instance = new OrderModel(order);
@@ -39,7 +40,7 @@ OrderRouter.get("/:id", async (req, res) => {
 });
 
 //!  PATCH ORDER BY ID
-OrderRouter.patch("/:id", async (req, res) => {
+OrderRouter.patch("/:id", Authentication, async (req, res) => {
     const id = req.params.id
     const payload = req.body
     try {

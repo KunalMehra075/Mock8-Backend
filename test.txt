@@ -37,12 +37,18 @@ RESTAURANT
 ------------------------------------------
 MENU ITEM
 {
-    "name": "Halwa",
-    "description": "Tasty Halwa",
-    "price": 70,
-    "image": "abcd"
-  }
+  "name": "Halwa",
+  "description": "Tasty Halwa",
+  "price": 70,
+  "image": "abcd"
+}
 
+{
+  "name": "Shawrma",
+  "description": "Tasty Shwarma ",
+  "price": 60,
+  "image": "abcd"
+}
 ------------------------------------------
 SAMPLE ORDER
 {
@@ -63,3 +69,5 @@ SAMPLE ORDER
    },
    "status": "placed"
 }
+
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2NDRjZDQzMmFiMGU5ZmU5ZjhhZDYxYWIiLCJpYXQiOjE2ODI3NTY2NzR9.2gudXSE9TeBnNMzMkNJELdY4faGpUqckgmMbieNEzTI
